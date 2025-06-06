@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: kr210_urdf
+    relative_path: urdf/kr210l150_remus.urdf
+  srdf:
+    relative_path: config/remus.srdf
+  package_settings:
+    author_name: Lolobotlab
+    author_email: 3dmetalix@gmail.com
+    generated_timestamp: 1749250724
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

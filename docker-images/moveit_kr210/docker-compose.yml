@@ -37,7 +37,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - $XAUTHORITY:/root/.Xauthority
       - /home/lolo/kukabots/kukaros/kr210_urdf:/root/ws_moveit/src/kr210_urdf
-      - /home/lolo/kukabots/kukaros/docker/moveit_tuto/entrypoint.sh:/entrypoint.sh
+      - /home/lolo/kukabots/kukaros/docker-images/moveit_kr210/entrypoint.sh:/entrypoint.sh
     environment:
       QT_X11_NO_MITSHM: 1
       DISPLAY: $DISPLAY

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="remus">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+    <!-- Import remus urdf file -->
+    <xacro:include filename="$(find kr210_urdf)/urdf/kr210l150_remus.urdf" />
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="remus.ros2_control.xacro" />
+
+
+    <xacro:remus_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+
+</robot>

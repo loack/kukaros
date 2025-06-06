@@ -1,0 +1,17 @@
+# MoveIt uses this configuration for controller management
+
+moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+
+moveit_simple_controller_manager:
+  controller_names:
+    - robot1_controller
+
+  robot1_controller:
+    type: FollowJointTrajectory
+    joints:
+      - remus_joint_a1
+      - remus_joint_a2
+      - remus_joint_a3
+      - remus_joint_a4
+      - remus_joint_a5
+      - remus_joint_a6

@@ -1,0 +1,9 @@
+# Default initial positions for remus's ros2_control fake system
+
+initial_positions:
+  remus_joint_a1: 0
+  remus_joint_a2: 0
+  remus_joint_a3: 0
+  remus_joint_a4: 0
+  remus_joint_a5: 0
+  remus_joint_a6: 0
