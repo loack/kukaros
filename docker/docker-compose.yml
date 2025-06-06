@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  ros2-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ros2-dev
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./ros2_ws:/ros2_ws  # Workspace ROS 2 local persistant
+    network_mode: host
+    stdin_open: true
+    tty: true
