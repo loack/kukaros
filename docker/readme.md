@@ -13,3 +13,10 @@ docker run -it --rm \
     --volume="$HOME/ros2_ws:/ros2_ws" \
     --name ros2-dev \
     ros2-dev
+
+ros2 launch moveit2_tutorials demo.launch.py
+
+#setup assistant
+ros2 launch moveit_setup_assistant setup_assistant.launch.py
+
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/root/kuka_experimental/kuka_kr210_support

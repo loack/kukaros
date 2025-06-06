@@ -1,6 +1,7 @@
 # Example command:
 #   Humble on a NVIDIA system:
 #   DOCKER_IMAGE=humble-humble-tutorial-source docker compose run gpu
+#   DOCKER_IMAGE=main-jazzy-tutorial-source docker-compose run cpu
 #   ros2 launch moveit2_tutorials demo.launch.py
 #   Rolling without discrete graphics:
 #   DOCKER_IMAGE=main-rolling-tutorial-source compose run cpu
@@ -15,6 +16,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - $XAUTHORITY:/root/.Xauthority
+      - /home/lolo/kukabots/kukaros/kuka_experimental
     environment:
       QT_X11_NO_MITSHM: 1
       DISPLAY: $DISPLAY
@@ -23,7 +25,7 @@ services:
     container_name: moveit2_container
     privileged: true
     network_mode: host
-    command: /bin/bash
+    command: ["/entrypoint.sh"]
     deploy:
       resources:
         reservations:
@@ -34,6 +36,8 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - $XAUTHORITY:/root/.Xauthority
+      - /home/lolo/kukabots/kukaros/kr210_urdf:/root/ws_moveit/src/kr210_urdf
+      - /home/lolo/kukabots/kukaros/docker/moveit_tuto/entrypoint.sh:/entrypoint.sh
     environment:
       QT_X11_NO_MITSHM: 1
       DISPLAY: $DISPLAY
