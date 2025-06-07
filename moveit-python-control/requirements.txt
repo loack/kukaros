@@ -1,0 +1,6 @@
+moveit_commander
+rospy
+numpy
+scipy
+matplotlib
+pyyaml
