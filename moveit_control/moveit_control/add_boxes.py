@@ -17,18 +17,17 @@ class BoxAdder(Node):
         scene = PlanningScene()
         scene.is_diff = True
 
-        for i in range(3):
-            box = CollisionObject()
-            box.id = f'box_{i}'
-            box.header.frame_id = 'world'
-            box.primitives = [SolidPrimitive(type=SolidPrimitive.BOX, dimensions=[0.1, 0.1, 0.1])]
-            pose = Pose()
-            pose.position.x = 0.4 + i * 0.2
-            pose.position.y = 0.0
-            pose.position.z = 0.1
-            box.primitive_poses = [pose]
-            box.operation = CollisionObject.ADD
-            scene.world.collision_objects.append(box)
+        box = CollisionObject()
+        box.id = f'box_{1}'
+        box.header.frame_id = 'world'
+        box.primitives = [SolidPrimitive(type=SolidPrimitive.BOX, dimensions=[0.1, 1.0, 1.0])]
+        pose = Pose()
+        pose.position.x = 1.0
+        pose.position.y = 0.5
+        pose.position.z = 0.5
+        box.primitive_poses = [pose]
+        box.operation = CollisionObject.ADD
+        scene.world.collision_objects.append(box)
 
         req = ApplyPlanningScene.Request()
         req.scene = scene
