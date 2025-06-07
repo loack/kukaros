@@ -5,13 +5,15 @@ from moveit_msgs.action import MoveGroup
 from moveit_msgs.msg import MotionPlanRequest, Constraints, JointConstraint
 from sensor_msgs.msg import JointState
 from rclpy.action import ActionClient
+import time
+
 
 class TrajectoryPlanner(Node):
     def __init__(self):
         super().__init__('trajectory_planner')
         self._action_client = ActionClient(self, MoveGroup, 'move_action')
         self.joint_names = [
-            'joint_1', 'joint_2', 'joint_3', 'joint_4', 'joint_5', 'joint_6'
+            'remus_joint_a1', 'remus_joint_a2', 'remus_joint_a3', 'remus_joint_a4', 'remus_joint_a5', 'remus_joint_a6'
         ]  # Replace with your robot's joint names
         self.target_positions = [0.0, -1.0, 1.0, 0.0, 1.0, 0.0]  # Example target
         self.timer = self.create_timer(1.0, self.send_goal)
@@ -58,6 +60,9 @@ class TrajectoryPlanner(Node):
         rclpy.shutdown()
 
 def main(args=None):
+    #wait for the rviz display to be ready
+    print("###########Waiting for 10 seconds before starting the trajectory planner...#############")
+    time.sleep(15)
     rclpy.init(args=args)
     node = TrajectoryPlanner()
     rclpy.spin(node)
