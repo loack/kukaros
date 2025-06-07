@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'add_boxes = moveit_control.add_boxes:main',
+            'plan_trajectory = moveit_control.plan_trajectory:main',
         ],
     },
 )

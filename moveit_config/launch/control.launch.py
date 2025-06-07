@@ -13,7 +13,14 @@ def generate_launch_description():
         output="screen"
     )
 
+    trajectory_planner_node = Node(
+        package="moveit_control",              # Your package name
+        executable="plan_trajectory",           # Entry point defined in setup.py
+        output="screen"
+    )
+
     return LaunchDescription([
         *demo_launch.entities,
-        add_boxes_node
+        add_boxes_node,
+        trajectory_planner_node
     ])
