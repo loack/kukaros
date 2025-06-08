@@ -1,0 +1,14 @@
+controller_names:
+  - robot1_controller
+
+robot1_controller:
+  action_ns: follow_joint_trajectory
+  type: FollowJointTrajectory
+  joints:
+    - remus_joint_a1
+    - remus_joint_a2
+    - remus_joint_a3
+    - remus_joint_a4
+    - remus_joint_a5
+    - remus_joint_a6
+  default: true

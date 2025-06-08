@@ -15,7 +15,7 @@ class TrajectoryPlanner(Node):
         self.joint_names = [
             'remus_joint_a1', 'remus_joint_a2', 'remus_joint_a3', 'remus_joint_a4', 'remus_joint_a5', 'remus_joint_a6'
         ]  # Replace with your robot's joint names
-        self.target_positions = [0.0, -1.0, 1.0, 0.0, 1.0, 0.0]  # Example target
+        self.target_positions = [0.5, 1.0, 1.0, 0.0, 1.0, 0.0]  # Example target
         self.timer = self.create_timer(1.0, self.send_goal)
 
     def send_goal(self):
@@ -60,9 +60,6 @@ class TrajectoryPlanner(Node):
         rclpy.shutdown()
 
 def main(args=None):
-    #wait for the rviz display to be ready
-    print("###########Waiting for 10 seconds before starting the trajectory planner...#############")
-    time.sleep(15)
     rclpy.init(args=args)
     node = TrajectoryPlanner()
     rclpy.spin(node)

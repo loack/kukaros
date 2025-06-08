@@ -5,9 +5,10 @@ moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControll
 moveit_simple_controller_manager:
   controller_names:
     - robot1_controller
-
   robot1_controller:
+    action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
+    default: true
     joints:
       - remus_joint_a1
       - remus_joint_a2
@@ -15,3 +16,4 @@ moveit_simple_controller_manager:
       - remus_joint_a4
       - remus_joint_a5
       - remus_joint_a6
+

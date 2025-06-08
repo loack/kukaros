@@ -1,7 +1,7 @@
 # Example command:
 #   Humble on a NVIDIA system:
 #   DOCKER_IMAGE=humble-humble-tutorial-source docker compose run gpu
-#   DOCKER_IMAGE=main-jazzy-tutorial-source docker-compose run cpu
+#   DOCKER_IMAGE=main-jazzy-tutorial-source docker-compose run gpu
 #   ros2 launch moveit2_tutorials demo.launch.py
 #   Rolling without discrete graphics:
 #   DOCKER_IMAGE=main-rolling-tutorial-source compose run cpu
