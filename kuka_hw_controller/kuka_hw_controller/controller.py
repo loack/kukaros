@@ -61,8 +61,8 @@ class KukaHWInterface(Node):
 
         #publish home position joint_state every 10 seconds
         self.target_joint_positions = [0.0, 0.5, 0.0, 0, 0.0, 0, 0]
-        self.timer = self.create_timer(10.0, self.publish_initial_joint_states)
-        self.logger.info("Timer for publishing initial joint states created.")
+        #self.timer = self.create_timer(10.0, self.publish_initial_joint_states)
+        #self.logger.info("Timer for publishing initial joint states created.")
 
 
     def joint_state_callback(self, msg: JointState):
@@ -74,7 +74,7 @@ class KukaHWInterface(Node):
         # you might process or filter this data.
         self.last_joint_state = msg
         # Uncomment the line below for verbose logging of joint states.
-        self.get_logger().info(f"Received joint states: {list(msg.position)}")
+        #self.get_logger().info(f"Received joint states: {list(msg.position)}")
 
 
     def publish_initial_joint_states(self):
