@@ -41,7 +41,7 @@ services:
       - /home/lolo/kukabots/kukaros/kr210_urdf:/root/ws_moveit/src/kr210_urdf
       - /home/lolo/kukabots/kukaros/moveit_config:/root/ws_moveit/src/moveit_config
       - /home/lolo/kukabots/kukaros/moveit_control:/root/ws_moveit/src/moveit_control
-      - /home/lolo/kukabots/kukaros/kuka_kvp_hw_interface:/root/ws_moveit/src/kuka_kvp_hw_interface
+      - /home/lolo/kukabots/kukaros/kuka_hw_controller:/root/ws_moveit/src/kuka_hw_controller
       - /home/lolo/kukabots/kukaros/docker-images/moveit_kr210/entrypoint.sh:/entrypoint.sh
     environment:
       QT_X11_NO_MITSHM: 1

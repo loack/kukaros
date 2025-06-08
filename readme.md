@@ -1,6 +1,7 @@
 Build container :
-
 docker build -t ros2-dev .
+
+1. run image moveit_kr210
 
 Run container : 
 
@@ -42,3 +43,5 @@ ros2 node list
 hardware interfaces
 ros2 control list_hardware_components
 ros2 control list_hardware_interfaces
+
+ros2 pkg create --build-type ament_python kuka_hw_controller --dependencies rclpy sensor_msgs moveit_ros_py

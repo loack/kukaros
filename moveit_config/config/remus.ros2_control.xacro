@@ -7,6 +7,10 @@
             <hardware>
                 <!-- By default, set up controllers for simulation. This won't work on real hardware -->
                 <plugin>mock_components/GenericSystem</plugin>
+
+                <!-- Use custom KUKA hardware controller -->
+                <!--<plugin>ros2_control_python/hardware_interface</plugin>
+                <param name="python_class">kuka_hw_controller.KukaHWInterface</param> -->
             </hardware>
             <joint name="remus_joint_a1">
                 <command_interface name="position"/>
