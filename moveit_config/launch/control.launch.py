@@ -19,8 +19,17 @@ def generate_launch_description():
         output="screen"
     )
 
+    kvp_interface_node = Node(
+        package="kuka_kvp_hw_interface",
+        executable="kvp_joint_command_node",
+        output="screen"
+    )
+
+
+
     return LaunchDescription([
         *demo_launch.entities,
         add_boxes_node,
-        trajectory_planner_node
+        trajectory_planner_node,
+        kvp_interface_node
     ])

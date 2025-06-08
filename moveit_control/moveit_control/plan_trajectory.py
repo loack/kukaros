@@ -16,9 +16,13 @@ class TrajectoryPlanner(Node):
             'remus_joint_a1', 'remus_joint_a2', 'remus_joint_a3', 'remus_joint_a4', 'remus_joint_a5', 'remus_joint_a6'
         ]  # Replace with your robot's joint names
         self.target_positions = [0.5, 0.0, 0.0, 0.0, 0.0, 0.0]  # Example target
-        self.timer = self.create_timer(1.0, self.send_goal)
+        #wait for rviz to be completely loaded
+        self.get_logger().info('Waiting for RViz to be fully loaded...')
+        time.sleep(5.0)  # Adjust this delay as necessary for your setup
+        self.send_goal()
 
     def send_goal(self):
+        self.get_logger().info('Sending goal to MoveGroup action server')
         if not self._action_client.wait_for_server(timeout_sec=5.0):
             self.get_logger().error('MoveGroup action server not available!')
             rclpy.shutdown()
@@ -42,7 +46,6 @@ class TrajectoryPlanner(Node):
         self.get_logger().info('Sending goal to MoveGroup...')
         self._send_goal_future = self._action_client.send_goal_async(goal_msg)
         self._send_goal_future.add_done_callback(self.goal_response_callback)
-        self.timer.cancel()
 
     def goal_response_callback(self, future):
         goal_handle = future.result()
@@ -56,6 +59,8 @@ class TrajectoryPlanner(Node):
 
     def get_result_callback(self, future):
         result = future.result().result
+        print(f"Motion plan result: {result.planning_time} seconds")
+        print(result)
         self.get_logger().info('Motion plan result received.')
         rclpy.shutdown()
 

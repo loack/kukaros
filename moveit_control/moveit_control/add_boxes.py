@@ -75,7 +75,6 @@ def main(args=None):
     node = BoxAdder()
      # Arrêter le nœud après l'exécution
     node.destroy_node()
-    rclpy.shutdown()
 
 if __name__ == '__main__':
     main()

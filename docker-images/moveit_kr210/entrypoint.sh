@@ -2,7 +2,7 @@
 set -e
 
 cd /root/ws_moveit
-colcon build --packages-select kr210_urdf moveit_config moveit_control
+colcon build --packages-select kr210_urdf moveit_config moveit_control kuka_kvp_hw_interface
 #pip3 intall trimesh
 source /root/ws_moveit/install/setup.bash
 ros2 launch moveit_config control.launch.py
@@ -14,3 +14,5 @@ exec /bin/bash
 #chmod +x /home/lolo/kukabots/kukaros/docker/moveit_tuto/entrypoint.sh
 
 #cd /root/ws_moveit/install/kr210_urdf/share/kr210_urdf/meshes/collision/link_5.stl
+
+
