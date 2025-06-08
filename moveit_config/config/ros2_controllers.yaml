@@ -3,14 +3,13 @@ controller_manager:
   ros__parameters:
     update_rate: 100  # Hz
 
-    robot1_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
-
-
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
+    kuka_kvp_hw_interface:
+      type: kuka_kvp_hw_interface/KukaKvpHardwareInterface
+      # Ajoutez ici vos paramètres spécifiques
 
-robot1_controller:
+kuka_kvp_hw_interface:
   ros__parameters:
     joints:
       - remus_joint_a1

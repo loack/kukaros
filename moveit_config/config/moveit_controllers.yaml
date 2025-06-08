@@ -4,8 +4,8 @@ moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControll
 
 moveit_simple_controller_manager:
   controller_names:
-    - robot1_controller
-  robot1_controller:
+    - kuka_kvp_hw_interface
+  kuka_kvp_hw_interface:
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     default: true
