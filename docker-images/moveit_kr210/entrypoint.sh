@@ -3,6 +3,7 @@ set -e
 
 cd /root/ws_moveit
 colcon build --packages-select kr210_urdf moveit_config moveit_control
+#pip3 intall trimesh
 source /root/ws_moveit/install/setup.bash
 ros2 launch moveit_config control.launch.py
 #ros2 launch moveit_config move_group.launch.py
