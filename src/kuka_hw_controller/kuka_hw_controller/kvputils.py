@@ -26,12 +26,12 @@ def start_program(robot):
 
 def read_axis_position(robot):
     position = robot.read("$AXIS_ACT")
-    print(f"Current axis position: {position}")
+    #print(f"Current axis position: {position}")
     return position
 
 def read_xyz_position(robot):
     position = robot.read("$POS_ACT")
-    print(f"Current XYZ position: {position}")
+    #print(f"Current XYZ position: {position}")
     return position
 
 def move_enable(robot, enable=False):
@@ -57,17 +57,12 @@ def convert_position_string(position):
         pos_dict[key] = float(value)
     return pos_dict
 
-def build_position_string(axis_values):
-    """
-    Builds a position string from a dictionary of axis values.
-    Example input: {'A1': 0, 'A2': -90.0, 'A3': 90, 'A4': 0.0, 'A5': 0.0, 'A6': 0.0}
-    Returns a formatted string like "{E6AXIS: A1 0, A2 -90.00000, A3 90, A4 0.0, A5 0.0, A6 0.0}"
-    """
-    keylist = ["A1", "A2", "A3", "A4", "A5", "A6", "E1", "E2", "E3", "E4", "E5", "E6"]
-    axis_str = ""
-    for i in range(6):
-        axis_str += f"{keylist[i]} {axis_values[i]:.5f}, "
-    return f"{{E6AXIS: {axis_str}}}"
+
+def go_home(robot):
+    #read home position from the robot
+    home = "{E6AXIS: A1 0.0, A2 -90.00000, A3 90.0, A4 0.0, A5 0.0, A6 0.0, E1 0.0, E2 0.0, E3 0.0, E4 0.0, E5 0.0, E6 0.0}"
+    robot.write("P1", home)
+
 
 def rad_to_deg(radians):
     """
@@ -79,30 +74,85 @@ def deg_to_rad(degrees):
     """
     return degrees * (3.141592653589793 / 180.0)
 
+def enable_linear_motion(robot, enable=True):
+    """Enables or disables linear motion.
+    """
+    robot.write("KVP_LIN_MOTION", "TRUE" if enable else "FALSE")
+    current_status = robot.read("KVP_LINEAR_MOTION")
+    if current_status == "TRUE":
+        print("Linear motion enabled successfully.")
+    else:
+        print("Failed to enable linear motion.")
+        
+def enable_ptp_motion(robot, enable=True):
+    """Enables or disables PTP motion.
+    """
+    robot.write("KVP_PTP_MOTION", "TRUE" if enable else "FALSE")
+    current_status = robot.read("KVP_PTP_MOTION")
+    if current_status == "TRUE":
+        print("PTP motion enabled successfully.")
+    else:
+        print("Failed to enable PTP motion.")
+
+def convert2RosPosition(pos_dict):
+    #add 90° to A2 and remove the 90° from A3
+    pos_dict[1] += 90.0  # A2
+    pos_dict[2] -= 90.0  # A3
+    #convert to radians
+    pos_dict = {k: deg_to_rad(v) for k, v in pos_dict.items()}
+    return pos_dict
+    #build the position string
+
+def convert2KukaPositionString(target_position):
+    """Converts a target position in radians to a KUKA position string.
+    target_position = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] A1 to A6
+    """
+    target_degrees = [rad_to_deg(value) for value in target_position]
+    #remove the 90° from A2 and add it to A3
+    #inverse A1
+    target_degrees[0] = -target_degrees[0]  # Inverse A1
+    target_degrees[1] -= 90.0  # A2
+    target_degrees[2] += 90.0  # A3
+    #convert to a dictionary
+    target_dict = {
+        "A1": target_degrees[0],
+        "A2": target_degrees[1],
+        "A3": target_degrees[2],
+        "A4": target_degrees[3],
+        "A5": target_degrees[4],
+        "A6": target_degrees[5],
+        "E1": 0.0,
+        "E2": 0.0,
+        "E3": 0.0,
+        "E4": 0.0,
+        "E5": 0.0,
+        "E6": 0.0
+    }
+    #build the position string
+    target_string = "{E6AXIS: " + ", ".join(f"{k} {v:.5f}" for k, v in target_dict.items()) + "}"
+    return target_string
+
+
 def ptp_motion(robot, target_position):
     """ Initiates a PTP motion to the target position.
     target position is a table of radians
     target_position = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] A1 to A6
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 E1 to E6
     """
-    #first convert the target position to a string format
-    target_degrees = {rad_to_deg(value) for value in target_position}
-    target_string = build_position_string(target_degrees)
-
-    robot.write("KVP_PTP_MOTION", "TRUE")
+    target_string = convert2KukaPositionString(target_position)
+    #print(f"Target position: {target_string}")
+    
     robot.write("P1", target_string)
-    print(f"PTP motion to {target_string} initiated.")
 
 def read_robot_state(robot):
-    """Reads the current state of the robot, including axis and XYZ positions.
-    Returns a dictionary with the current axis and XYZ positions.
+    """Reads the current state of the robot, axis
     """
     axis_position = read_axis_position(robot)
     axis_dict = convert_position_string(axis_position)
     #convert axis_dict values to float
     axis_dict = {k: float(v) for k, v in axis_dict.items()}
     #covnert axis_dict values to degrees
-    axis_dict = {k: rad_to_deg(v) for k, v in axis_dict.items()}
+    axis_dict = {k: deg_to_rad(v) for k, v in axis_dict.items()}
     #return axis_dict
     return axis_dict
 
