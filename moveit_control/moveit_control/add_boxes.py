@@ -44,26 +44,18 @@ class BoxAdder(Node):
                 return
             self.get_logger().info("Objet 'table_moveit_py' ajouté à la scène.")
 
-       
-
-    def add_boxes(self):
-        scene = PlanningScene()
-        scene.is_diff = True
-
-        # Add box
+    def make_box(self, name, dimensions,position,colorRGB=[1.0, 0.0, 0.0]):
         box = CollisionObject()
-        box.id = f'box_{1}'
+        box.id = 'box'
         box.header.frame_id = 'world'
-        box.primitives = [SolidPrimitive(type=SolidPrimitive.BOX, dimensions=[0.1, 1.0, 1.0])]
+        box.primitives = [SolidPrimitive(type=SolidPrimitive.BOX, dimensions=dimensions)]
         pose = Pose()
-        pose.position.x = 1.0
-        pose.position.y = 0.5
-        pose.position.z = 0.5
+        pose.position.x = position[0]
+        pose.position.y = position[1]
+        pose.position.z = position[2]
         box.primitive_poses = [pose]
         box.operation = CollisionObject.ADD
-        scene.world.collision_objects.append(box)
 
-        colorRGB = [1.0, 1.0, 0.0]
         # Define color for the box
         color = ObjectColor()
         color.id = box.id
@@ -71,7 +63,20 @@ class BoxAdder(Node):
         color.color.g = colorRGB[1]
         color.color.b = colorRGB[2]
         color.color.a = 1.0  # Opaque
-        scene.object_colors.append(color)
+        
+        return box, color
+
+    def add_boxes(self):
+        scene = PlanningScene()
+        scene.is_diff = True
+
+        # Add box
+
+        box1, color1 = self.make_box('box1', [0.1, 1.0, 1.0], [0.5, 0.5, 0.5], [1.0, 0.0, 0.0])
+        scene.world.collision_objects.append(box1)
+
+        scene.world.collision_objects.append(box1)
+        scene.object_colors.append(color1)
 
         req = ApplyPlanningScene.Request()
         req.scene = scene
