@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from moveit_msgs.srv import ApplyPlanningScene
-from moveit_msgs.msg import PlanningScene, CollisionObject
+from moveit_msgs.msg import PlanningScene, CollisionObject,ObjectColor
 from shape_msgs.msg import SolidPrimitive, Mesh
 from geometry_msgs.msg import Pose, Point
 from shape_msgs.msg import MeshTriangle
@@ -62,6 +62,16 @@ class BoxAdder(Node):
         box.primitive_poses = [pose]
         box.operation = CollisionObject.ADD
         scene.world.collision_objects.append(box)
+
+        colorRGB = [1.0, 1.0, 0.0]
+        # Define color for the box
+        color = ObjectColor()
+        color.id = box.id
+        color.color.r = colorRGB[0]
+        color.color.g = colorRGB[1]
+        color.color.b = colorRGB[2]
+        color.color.a = 1.0  # Opaque
+        scene.object_colors.append(color)
 
         req = ApplyPlanningScene.Request()
         req.scene = scene
