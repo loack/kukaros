@@ -1,4 +1,0 @@
-string name
-bool value
----
-industrial_msgs/ServiceReturnCode code

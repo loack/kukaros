@@ -8,12 +8,12 @@ from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from builtin_interfaces.msg import Duration
 
-# Import the MoveItPy interface
-from moveit.core.robot_state import RobotState
-from moveit.planning import (
-    MoveItPy,
-    MultiPipelinePlanRequestParameters,
-)
+#import kukavarproxy from same folder
+from .kukavarproxy import KukaVarProxyClient
+
+from .kvputils import set_variable, set_speed, start_program, read_axis_position, read_xyz_position, move_enable, ptp_motion
+
+import time
 
 class KukaHWInterface(Node):
     """
@@ -29,9 +29,17 @@ class KukaHWInterface(Node):
         self.logger = get_logger("kuka_hw_controller")
         self.logger.info("--------------Initializing KukaHWInterface node----------------")
 
-        # =========================================================================================
-        # /// IMPORTANT: USER-CONFIGURABLE PARAMETERS ///
-        # =========================================================================================
+        #Last interaction timer
+        self.last_interaction_time = self.get_clock().now()
+
+        #target
+        self.target_joint_positions = [0.0, 0, 0.0, 0, 0.0, 0, 0]
+
+        #Initialize connection with KVP
+        robot = KukaVarProxyClient('192.168.1.5',7000)
+        robot.connect()
+        self.logger.info("Connected to Kuka robot via KVP.")
+
         self.planning_group = "robot1"
         self.joint_names = [
             "remus_joint_a1",
@@ -42,27 +50,16 @@ class KukaHWInterface(Node):
             "remus_joint_a6",
             "remus_joint_a7",
         ]
-        self.target_joint_positions = [0.0, 0, 0.0, 0, 0.0, 0, 0]
+        
         # =========================================================================================
 
         # Publisher for joint states
         self.joint_state_pub = self.create_publisher(JointState, "joint_states", 1)
         self.logger.info("Publisher for /joint_states created.")
 
-        # Publish initial joint states
-        self.publish_initial_joint_states()
-
-        # 1. --- Subscriber for Reading Joint States ---
-        # This subscriber listens to the /joint_states topic to get real-time
-        # information about the robot's current joint positions.
         self.joint_state_sub = self.create_subscription(
             JointState, "joint_states", self.joint_state_callback, 100)
         self.logger.info("Subscriber for /joint_states created.")
-
-        #publish home position joint_state every 10 seconds
-        self.target_joint_positions = [0.0, 0.5, 0.0, 0, 0.0, 0, 0]
-        #self.timer = self.create_timer(10.0, self.publish_initial_joint_states)
-        #self.logger.info("Timer for publishing initial joint states created.")
 
 
     def joint_state_callback(self, msg: JointState):
@@ -74,21 +71,10 @@ class KukaHWInterface(Node):
         # you might process or filter this data.
         self.last_joint_state = msg
         # Uncomment the line below for verbose logging of joint states.
-        #self.get_logger().info(f"Received joint states: {list(msg.position)}")
+
+        self.get_logger().info(f"Received joint states: {list(msg.position)}")
 
 
-    def publish_initial_joint_states(self):
-        """
-        Publishes the initial joint states at node startup.
-        """
-        msg = JointState()
-        msg.header.stamp = self.get_clock().now().to_msg()
-        msg.name = self.joint_names
-        msg.position = self.target_joint_positions
-        msg.velocity = [0.0] * len(self.joint_names)
-        msg.effort = [0.0] * len(self.joint_names)
-        self.joint_state_pub.publish(msg)
-        self.logger.info("Initial joint states published.")
 
     def destroy_node(self):
         self.logger.info("Shutting down the simple controller node.")

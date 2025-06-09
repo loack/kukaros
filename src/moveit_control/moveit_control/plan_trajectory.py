@@ -41,6 +41,7 @@ class TrajectoryPlanner(Node):
             jc.weight = 1.0
             constraints.joint_constraints.append(jc)
         req.goal_constraints.append(constraints)
+
         goal_msg.request = req
 
         self.get_logger().info('Sending goal to MoveGroup...')
