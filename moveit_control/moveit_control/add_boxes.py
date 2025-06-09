@@ -46,7 +46,7 @@ class BoxAdder(Node):
 
     def make_box(self, name, dimensions,position,colorRGB=[1.0, 0.0, 0.0]):
         box = CollisionObject()
-        box.id = 'box'
+        box.id = name
         box.header.frame_id = 'world'
         box.primitives = [SolidPrimitive(type=SolidPrimitive.BOX, dimensions=dimensions)]
         pose = Pose()
@@ -65,18 +65,21 @@ class BoxAdder(Node):
         color.color.a = 1.0  # Opaque
         
         return box, color
+    
+    def add_box_to_scene(self, scene, name, dimensions, position, colorRGB=[1.0, 0.0, 0.0]):
+        box, color = self.make_box(name, dimensions, position, colorRGB)
+        scene.is_diff = True  # Indicate that this is a diff update
+        scene.world.collision_objects.append(box)
+        scene.object_colors.append(color)
+        return scene
 
     def add_boxes(self):
         scene = PlanningScene()
         scene.is_diff = True
 
-        # Add box
-
-        box1, color1 = self.make_box('box1', [0.1, 1.0, 1.0], [0.5, 0.5, 0.5], [1.0, 0.0, 0.0])
-        scene.world.collision_objects.append(box1)
-
-        scene.world.collision_objects.append(box1)
-        scene.object_colors.append(color1)
+        scene = self.add_box_to_scene(scene, 'sol', [0.1, 1.0, 1.0], [0.5, 0.5, 0.5], [1.0, 0.0, 0.0])
+        scene = self.add_box_to_scene(scene, 'box2', [0.1, 1.0, 1.0], [0.5, -0.5, 0.5], [0.0, 1.0, 0.0])
+        scene = self.add_box_to_scene(scene, 'box3', [0.1, 1.0, 1.0], [-0.5, 0.5, 0.5], [0.0, 0.0, 1.0])
 
         req = ApplyPlanningScene.Request()
         req.scene = scene
