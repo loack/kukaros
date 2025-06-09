@@ -11,7 +11,7 @@ from builtin_interfaces.msg import Duration
 #import kukavarproxy from same folder
 from .kukavarproxy import KukaVarProxyClient
 
-from .kvputils import set_variable, set_speed, start_program, read_axis_position, read_xyz_position, move_enable, ptp_motion
+from .kvputils import set_speed, start_program, read_robot_state, read_xyz_position, move_enable, ptp_motion
 
 import time
 
@@ -33,12 +33,15 @@ class KukaHWInterface(Node):
         self.last_interaction_time = self.get_clock().now()
 
         #target
-        self.target_joint_positions = [0.0, 0, 0.0, 0, 0.0, 0, 0]
+        self.target_joint_positions = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
         #Initialize connection with KVP
-        robot = KukaVarProxyClient('192.168.1.5',7000)
-        robot.connect()
+        '''self.robot = KukaVarProxyClient('192.168.1.5',7000)
+        self.robot.connect()
         self.logger.info("Connected to Kuka robot via KVP.")
+        start_program(self.robot)
+        self.logger.info("Started KVP program on the robot.")
+        set_speed(self.robot, 10)'''
 
         self.planning_group = "robot1"
         self.joint_names = [
@@ -67,12 +70,20 @@ class KukaHWInterface(Node):
         Callback function for the /joint_states subscriber.
         It stores the latest joint state message.
         """
-        # We simply store the latest message. For a more complex application,
-        # you might process or filter this data.
-        self.last_joint_state = msg
-        # Uncomment the line below for verbose logging of joint states.
+        #check how long from last interaction
+        current_time = self.get_clock().now()
+        if (current_time - self.last_interaction_time).nanoseconds/1000000 > 100:  # 100 milisecond
+            self.last_joint_state = msg
+            self.get_logger().info(f"Received joint states: {list(msg.position)}")
+            self.last_interaction_time = current_time
+            #axis_states_robot = read_robot_state(self.robot)
+            #self.get_logger().info(f"Current axis states from robot: {axis_states_robot}")
+            #ptp_motion(self.robot,msg.position)
 
-        self.get_logger().info(f"Received joint states: {list(msg.position)}")
+
+
+
+        
 
 
 
