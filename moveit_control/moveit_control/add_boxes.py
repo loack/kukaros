@@ -76,10 +76,10 @@ class BoxAdder(Node):
     def add_boxes(self):
         scene = PlanningScene()
         scene.is_diff = True
-
-        scene = self.add_box_to_scene(scene, 'sol', [0.1, 1.0, 1.0], [0.5, 0.5, 0.5], [1.0, 0.0, 0.0])
-        scene = self.add_box_to_scene(scene, 'box2', [0.1, 1.0, 1.0], [0.5, -0.5, 0.5], [0.0, 1.0, 0.0])
-        scene = self.add_box_to_scene(scene, 'box3', [0.1, 1.0, 1.0], [-0.5, 0.5, 0.5], [0.0, 0.0, 1.0])
+         # Define the frame_id for the scene                           x    y    z
+        scene = self.add_box_to_scene(scene, 'sol', [6.0, 6.0, 0.1], [0.0, 0.0, -0.05], [1.0, 1.0, 1.0])
+        scene = self.add_box_to_scene(scene, 'palette', [1.2, 1.0, 1.5], [0.0, -2.0, 0.75], [0.0, 1.0, 0.0])
+        scene = self.add_box_to_scene(scene, 'voiture', [2.0, 4.8, 2.0], [4.0, -2.0, 1.0], [0.0, 0.0, 1.0])
 
         req = ApplyPlanningScene.Request()
         req.scene = scene
