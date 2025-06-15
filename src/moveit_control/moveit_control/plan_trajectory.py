@@ -19,7 +19,7 @@ class TrajectoryPlanner(Node):
         #wait for rviz to be completely loaded
         self.get_logger().info('Waiting for RViz to be fully loaded...')
         time.sleep(5.0)  # Adjust this delay as necessary for your setup
-        #self.send_goal()
+        self.send_goal()
 
     def send_goal(self):
         self.get_logger().info('Sending goal to MoveGroup action server')
@@ -61,7 +61,9 @@ class TrajectoryPlanner(Node):
     def get_result_callback(self, future):
         result = future.result().result
         print(f"Motion plan result: {result.planning_time} seconds")
-        print(result)
+        planned_trajectory = result.planned_trajectory
+        #display trajectory in RViz or process it as needed
+
         self.get_logger().info('Motion plan result received.')
         rclpy.shutdown()
 
