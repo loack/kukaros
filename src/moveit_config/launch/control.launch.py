@@ -141,16 +141,6 @@ def generate_launch_description():
         output="screen"
     )
 
-    # Add the Python hardware interface node
-    kuka_hw_interface_node = Node(
-        package="kuka_hw_controller",
-        executable="kuka_hw_interface",  # Make sure this matches your entry point in setup.py
-        output="screen",
-        parameters=[{
-            "python_class": "kuka_hw_controller.KukaHWInterface"
-        }]
-    )
-
     #add interface plugin node
     interface_ui = Node(
         package="interface_plugin",
@@ -162,7 +152,6 @@ def generate_launch_description():
         *demo_launch.entities,
         add_boxes_node,
         trajectory_planner_node,
-        kuka_hw_interface_node,
         interface_ui
     ])
 

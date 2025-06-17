@@ -3,10 +3,10 @@
     <xacro:macro name="remus_ros2_control" params="name initial_positions_file">
         <xacro:property name="initial_positions" value="${xacro.load_yaml(initial_positions_file)['initial_positions']}"/>
 
-        <ros2_control name="${name}" type="system">
+        <ros2_control name="KUKAKR210System" type="system">
             <hardware>
                 <!-- By default, set up controllers for simulation. This won't work on real hardware -->
-                <plugin>mock_components/GenericSystem</plugin>
+                <plugin>kuka_kr210_hardware_interface/KUKAKR210System</plugin>
 
                 <!-- Use custom KUKA hardware controller -->
                 <!--<plugin>ros2_control_python/hardware_interface</plugin>
