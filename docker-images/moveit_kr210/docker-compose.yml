@@ -26,6 +26,8 @@ services:
     container_name: moveit2_container
     privileged: true
     network_mode: host
+    ports:
+      - "8765:8765"
     command: ["/entrypoint.sh"]
     deploy:
       resources:

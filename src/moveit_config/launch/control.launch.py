@@ -149,12 +149,21 @@ def generate_launch_description():
         parameters=[{
             "python_class": "kuka_hw_controller.KukaHWInterface"
         }]
+
+    )
+    #foxglove brigde
+    foxglove = Node(
+            package='foxglove_bridge',
+            executable='foxglove_bridge',
+            name='foxglove_bridge',
+            parameters=[{'port': 8765}]
     )
 
     return LaunchDescription([
         *demo_launch.entities,
         add_boxes_node,
         trajectory_planner_node,
-        kuka_hw_interface_node
+        kuka_hw_interface_node,
+        foxglove
     ])
 
