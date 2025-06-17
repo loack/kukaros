@@ -7,34 +7,44 @@ default_acceleration_scaling_factor: 0.5
 
 # Specific joint properties can be changed with the keys [max_position, min_position, max_velocity, max_acceleration]
 # Joint limits can be turned off with [has_velocity_limits, has_acceleration_limits]
+#Données
+
+#210 kg 180 kg 150 kg
+#Axe 1 (A1) ±185° 86°/s 86°/s 86°/s
+#Axe 2 (A2) 0°/–146° 84°/s 84°/s 84°/s
+#Axe 3 (A3) +155°/–119° 84°/s 84°/s 81°/s
+#Axe 4 (A4) ±350° 100°/s 100°/s 100°/s
+#Axe 5 (A5) ±125° 110°/s 110°/s 110°/s
+#Axe 6 (A6) ±350° 184°/s 184°/s 184°/s
+
 joint_limits:
   remus_joint_a1:
     has_velocity_limits: true
-    max_velocity: 2.1467550389999999
+    max_velocity: 1.501
     has_acceleration_limits: true
-    max_acceleration: 3.0
+    max_acceleration: 1.501
   remus_joint_a2:
     has_velocity_limits: true
-    max_velocity: 2.007128695
+    max_velocity: 1.466
     has_acceleration_limits: true
-    max_acceleration: 3.0
+    max_acceleration: 1.466
   remus_joint_a3:
     has_velocity_limits: true
-    max_velocity: 1.9547688160000001
+    max_velocity: 1.466
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 1.466
   remus_joint_a4:
     has_velocity_limits: true
-    max_velocity: 3.1241394470000001
+    max_velocity: 1.745
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 1.745
   remus_joint_a5:
     has_velocity_limits: true
-    max_velocity: 3.0019663959999998
+    max_velocity: 1.919
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 1.919
   remus_joint_a6:
     has_velocity_limits: true
-    max_velocity: 3.8222711669999998
+    max_velocity: 3.211
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 3.211

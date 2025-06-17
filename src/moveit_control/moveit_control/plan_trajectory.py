@@ -19,6 +19,7 @@ class TrajectoryPlanner(Node):
         #wait for rviz to be completely loaded
         self.get_logger().info('Waiting for RViz to be fully loaded...')
         time.sleep(5.0)  # Adjust this delay as necessary for your setup
+
         self.send_goal()
 
     def send_goal(self):

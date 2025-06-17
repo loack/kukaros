@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /MotionPlanning1
       Splitter Ratio: 0.5
     Tree Height: 295
   - Class: rviz_common/Help
@@ -106,14 +107,14 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-        Loop Animation: true
+        Loop Animation: false
         Robot Alpha: 0.5
         Robot Color: 150; 50; 150
         Show Robot Collision: false
-        Show Robot Visual: false
-        Show Trail: false
+        Show Robot Visual: true
+        Show Trail: true
         State Display Time: 0.05 s
-        Trail Step Size: 1
+        Trail Step Size: 5
         Trajectory Topic: display_planned_path
         Use Sim Time: false
       Planning Metrics:
@@ -267,7 +268,7 @@ Visualization Manager:
       Enabled: true
       Name: Marker
       Namespaces:
-        trajectory: true
+        {}
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -294,25 +295,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 10.725476264953613
+      Distance: 4.446271896362305
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.10000000149011612
-        Y: 0.25
-        Z: 0.30000001192092896
+        X: 0.4046173393726349
+        Y: -0.27711552381515503
+        Z: 0.018048085272312164
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.934999942779541
+      Pitch: 1.059999704360962
       Target Frame: remus_base_link
       Value: Orbit (rviz_default_plugins)
-      Yaw: 0.8370162844657898
+      Yaw: 0.0520167350769043
     Saved: ~
 Window Geometry:
   Displays:
@@ -326,7 +327,7 @@ Window Geometry:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000100000000000002b400000505fc0200000005fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb000000100044006900730070006c006100790073010000003b000001a8000000c700fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e006701000001e9000002490000016900fffffffb0000000800480065006c0070000000029a0000006e0000006e00fffffffb0000000a00560069006500770073010000043800000108000000a000ffffff000007040000050500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000100000000000002b400000505fc0200000005fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000003f00fffffffb000000100044006900730070006c006100790073010000003b000001a8000000c700fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e006701000001e9000002490000016a00fffffffb0000000800480065006c0070000000029a0000006e0000006e00fffffffb0000000a00560069006500770073010000043800000108000000a000ffffff000007040000050500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 2494
