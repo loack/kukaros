@@ -2,7 +2,7 @@
 set -e
 
 cd /root/ws_moveit
-colcon build --packages-select kr210_urdf moveit_config moveit_control kuka_hw_controller
+colcon build --packages-select kr210_urdf moveit_config moveit_control kuka_hw_controller interface_plugin
 #pip3 intall trimesh
 source /root/ws_moveit/install/setup.bash
 ros2 launch moveit_config control.launch.py

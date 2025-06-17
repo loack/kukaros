@@ -151,10 +151,18 @@ def generate_launch_description():
         }]
     )
 
+    #add interface plugin node
+    interface_ui = Node(
+        package="interface_plugin",
+        executable="interface_plugin",
+        output="screen"
+    )
+
     return LaunchDescription([
         *demo_launch.entities,
         add_boxes_node,
         trajectory_planner_node,
-        kuka_hw_interface_node
+        kuka_hw_interface_node,
+        interface_ui
     ])
 
