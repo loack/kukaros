@@ -48,6 +48,7 @@ hardware_interface::return_type KUKAKR210System::read(const rclcpp::Time &, cons
   // Mock read: simulate robot following commands exactly
   hw_positions_ = hw_commands_;
   hw_velocities_.assign(hw_velocities_.size(), 0.0);
+  RCLCPP_INFO(rclcpp::get_logger("KUKAKR210System"), "Reading joint commands...");
   return hardware_interface::return_type::OK;
 }
 
